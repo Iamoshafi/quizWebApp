@@ -1,0 +1,88 @@
+.parent-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
+
+    background: url("http://unsplash.it/1200x800") center center no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(to top right, #002f4b, #dc4225);
+}
+
+
+
+.left-child{
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid red; */
+    margin: auto;
+    padding: 20px;
+}
+
+.question-number{
+    font-size: 1.5rem;
+    font-family: "Chakra Petch", sans-serif;
+}
+
+.question{
+    font-size: 3rem;
+    font-family: "Rakkas", serif;
+}
+
+.right-child{
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    margin: auto;
+    padding: 20px;
+    /* border: 2px solid blue; */
+}
+
+.instruction{
+    font-size: 30px;
+    font-family: "Chakra Petch", sans-serif;
+}
+
+.ans-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+    padding-left: 50px;
+}
+
+.answer{
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: "Chakra Petch", sans-serif;
+    font-size: 20px;
+}
+
+.answer:hover{
+    border: 2px solid #dc4225;
+
+}
+
+.next-cont{
+   display: flex;
+   justify-content: center;
+   padding-right: 50px
+}
+
+.next-button{
+    width: 40%;
+    padding: 8px;
+    border-radius: 10px;
+    font-family: "Chakra Petch", sans-serif;
+    font-size: 20px;
+    background-color: #002f4b;
+    color: white;
+}
+
