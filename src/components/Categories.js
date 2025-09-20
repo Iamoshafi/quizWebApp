@@ -1,14 +1,14 @@
+// Categories.js
 import React from 'react'
 import './Categories.css'
-// import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Categories = () => {
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = "/axios";
-    navigate(path)
-  }
+
+  const handleCategorySelect = (categoryId) => {
+    navigate("/axios", { state: { categoryId } });
+  };
 
   return (
     <div className="catBody">
@@ -16,15 +16,15 @@ const Categories = () => {
         <h2>Select a category:</h2>
         <hr />
         <div className="buttonCont">
-          <button onClick={routeChange}>🏆Sports</button>
-          <button>📚General Knowledge</button>
-          <button>🎬Entertainment</button>
-          <button>💒Geography</button>
-          <button>👨‍🎓Politics</button>
+          <button onClick={() => handleCategorySelect(21)}>🏆 Sports</button>
+          <button onClick={() => handleCategorySelect(9)}>📚 General Knowledge</button>
+          <button onClick={() => handleCategorySelect(11)}>🎬 Entertainment</button>
+          <button onClick={() => handleCategorySelect(22)}>💒 Geography</button>
+          <button onClick={() => handleCategorySelect(24)}>👨‍🎓 Politics</button>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Categories
+export default Categories;

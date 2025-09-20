@@ -86,3 +86,12 @@
     color: white;
 }
 
+.answer.correct {
+  background-color: #4caf50; 
+  color: white;
+}
+
+.answer.wrong {
+  background-color: #f44336;
+  color: white;
+}
