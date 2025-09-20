@@ -12,13 +12,18 @@ const Axios = () => {
   const [options, setOptions] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [score, setScore] = useState(0);
+  const [quizFinished, setQuizFinished] = useState(false);
 
+  // Fetch questions
   async function getTriviaData() {
     const resp = await axios.get(
       `https://opentdb.com/api.php?amount=10&category=${categoryId}&type=multiple`
     );
     setTriviaData(resp.data.results);
     setCurrentQuestionIndex(0);
+    setScore(0);
+    setQuizFinished(false);
     setIsAnswered(false);
   }
 
@@ -26,6 +31,7 @@ const Axios = () => {
     getTriviaData();
   }, [categoryId]);
 
+  // Shuffle options whenever the question changes
   useEffect(() => {
     if (triviaData.length > 0) {
       const currentQ = triviaData[currentQuestionIndex];
@@ -39,20 +45,38 @@ const Axios = () => {
     if (!isAnswered) {
       setSelectedAnswer(answer);
       setIsAnswered(true);
+
+      // Increase score if correct
+      if (answer === triviaData[currentQuestionIndex].correct_answer) {
+        setScore((prev) => prev + 1);
+      }
     }
   };
 
   const handleNext = () => {
     setSelectedAnswer(null);
     setIsAnswered(false);
+
     if (currentQuestionIndex < triviaData.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      alert("Quiz finished!");
+      setQuizFinished(true); // End of quiz
     }
   };
 
   if (triviaData.length === 0) return <div>Loading...</div>;
+
+  if (quizFinished) {
+    return (
+      <div className="quiz-finished">
+        <h2>Quiz Finished!</h2>
+        <p>
+          You scored <strong>{score}</strong> out of {triviaData.length}
+        </p>
+        <button onClick={getTriviaData}>Play Again</button>
+      </div>
+    );
+  }
 
   const currentQ = triviaData[currentQuestionIndex];
 
@@ -61,8 +85,9 @@ const Axios = () => {
       <div className="left-child">
         <div>
           <h2 className="question-number">
-            Question {currentQuestionIndex + 1}/10
+            Question {currentQuestionIndex + 1}/{triviaData.length}
           </h2>
+          <h3>Score: {score}</h3>
         </div>
         <div
           className="question"
@@ -96,8 +121,12 @@ const Axios = () => {
         </div>
 
         <div className="next-cont">
-          <button className="next-button" onClick={handleNext} disabled={!isAnswered}>
-            Next
+          <button
+            className="next-button"
+            onClick={handleNext}
+            disabled={!isAnswered}
+          >
+            {currentQuestionIndex === triviaData.length - 1 ? "Finish" : "Next"}
           </button>
         </div>
       </div>
